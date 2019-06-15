@@ -8,6 +8,8 @@ module.exports = {
         "@components": "gym101/app/components/index.js",
         "@static/*": "gym101/app/static/*",
         "@config": "gym101/app/config.js",
+        "@store": "gym101/app/store.js",
+        "@actions": "gym101/app/actions/index.js",
         
       }
     }]

@@ -1,30 +1,14 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 
-import {
-  SplashScreen,
-  MaterialBottomTabNavigator,
-} from '@components'
+import { App } from '@components'
 
+import store from './store'
 
-
-export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isLoading: true
-    }
-  }
-
-  componentDidMount() {
-    setTimeout(()=> this.setState({isLoading: false}), 2000)
-  }
-
-  render() {
-    return (
-      this.state.isLoading
-      ? <SplashScreen />
-      : <MaterialBottomTabNavigator />
-    )
-  }
+export default function() {
+  return (
+    <Provider store={store}>
+      <App />
+    </Provider>
+  )
 }
