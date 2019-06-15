@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import i18n from "@i18n"
 import { fonts } from '@config'
 
+import FirebaseML from './FirebaseML';
+
 export default class CameraScreen extends React.Component {
 
   takePicture = async() => {
@@ -13,6 +15,7 @@ export default class CameraScreen extends React.Component {
       const options = { quality: 0.5, base64: true }
       const data = await this.camera.takePictureAsync(options)
       console.log(data.uri)
+      FirebaseML.show('Awesome');
     }
   }
 
