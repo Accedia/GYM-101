@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
@@ -44,6 +44,11 @@ export default class CameraScreen extends React.Component {
             console.log(barcodes);
           }}
         />
+         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
+            <Text style={{ fontSize: 14 }}> SNAP </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
