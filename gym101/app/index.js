@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import i18n from "./i18n";
 
@@ -23,7 +23,7 @@ class CameraScreen extends React.Component {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text style={{ fontFamily: 'TwCenMTStd-UltraBold' }}>{ i18n.t('hello') }</Text>
-        <Icon name="rocket" size={30} color="#900" />
+        <Icon name="comments" size={30} color="#900" />
       </View>
     );
   }
