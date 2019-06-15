@@ -13,3 +13,10 @@ export const fonts = {
   ultraBoldIt: 'TwCenMTStd-UltraBoldIt',
   regular: 'TwCenMTStd',
 }
+
+export const colors = {
+  yellow: '#ffcc00',
+  lightGrey: '#F5F5F5',
+  grey: '#8e8e8e',
+  darkGrey: '#666666',
+}

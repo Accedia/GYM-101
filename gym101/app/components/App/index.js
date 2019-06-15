@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import {
   SplashScreen,
-  MaterialBottomTabNavigator,
+  PictureTakingProcessStackNavigator as Navigator,
 } from '@components'
 
 import { types } from '@actions'
@@ -18,7 +18,7 @@ class App extends React.Component {
     return (
       this.props.isLoading
       ? <SplashScreen />
-      : <MaterialBottomTabNavigator />
+      : <Navigator />
     )
   }
 }
