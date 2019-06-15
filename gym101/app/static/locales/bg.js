@@ -1,3 +1,4 @@
 export default {
-  hello: "Здравейте"
+  hello: 'Здравейте',
+  goodbye: 'Довиждане'
 };
