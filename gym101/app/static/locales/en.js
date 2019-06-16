@@ -9,5 +9,8 @@ export default {
     explanation: 'Ready for a workout?'
   },
   hello: 'Hello',
-  goodbye: 'Goodbye'
+  goodbye: 'Goodbye',
+  'not-confident-prediction-screen': {
+    explanation: 'Is this the correct equipment?'
+  }
 };

@@ -13,6 +13,7 @@ import {
 import { colors } from '@config'
 
 import logoSmall from './../../static/images/logo_small.png'
+import NotConfidentPredictionScreen from '../NotConfidentPredictionScreen';
 
 const navigationOptions = {
   headerTitle: <Image source={logoSmall} />,
@@ -33,6 +34,10 @@ const routeConfigs = {
   MachineDetails: { 
     screen: MachineDetailsScreen,
     navigationOptions,
+  },
+  NotConfidentPrediction: {
+    screen: NotConfidentPredictionScreen,
+    navigationOptions
   }
 }
 
