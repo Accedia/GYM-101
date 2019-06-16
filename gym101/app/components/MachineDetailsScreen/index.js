@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, ToastAndroid } from 'react-native'
 
 import { fonts } from '@config'
 
@@ -40,9 +40,11 @@ export default class MachineDetailsScreen extends React.Component {
   
   componentDidMount() {
     this.fetchData(this.props.navigation.state.params.appliance).then(data => {
+      console.log(data[0]);
       this.setState({ isLoading: false, data: data[0]})
-    }).then(err => {
+    }).catch(err => {
       console.log(err);
+      ToastAndroid.show(err, ToastAndroid.LONG);
     });
   }
 

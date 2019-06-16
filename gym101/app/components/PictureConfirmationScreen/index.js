@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native'
 
 import i18n from '@i18n'
 import { fonts } from '@config'
@@ -30,7 +29,7 @@ export default function PictureConfirmationScreen(props) {
       props.navigation.navigate('MachineDetails', prediction);
     }).catch(error => {
       console.log(error);
-      // TODO insert toast message with the error and navigate backward!
+      ToastAndroid.show(error, ToastAndroid.LONG);
     });
   }
 
