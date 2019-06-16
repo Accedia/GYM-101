@@ -79,17 +79,21 @@ public class FirebaseML extends ReactContextBaseJavaModule {
               @Override
               public void onSuccess(List<FirebaseVisionImageLabel> labels) {
               Toast.makeText(getReactApplicationContext(), "2", Toast.LENGTH_LONG).show();
-
-                successCallback.invoke(labels);
+                if (labels.size() > 0) {
+                  successCallback.invoke(
+                    labels.get(0).getText(),
+                    labels.get(0).getConfidence()
+                  );
+                } else {
+                  errorCallback.invoke("Couldn't recognize. Please take another image!");
+                }
               }
             })
             .addOnFailureListener(new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception e) {
                 errorCallback.invoke("OnFailureListener " + e.getMessage());
-
                 Toast.makeText(getReactApplicationContext(), "3", Toast.LENGTH_LONG).show();
-                
               }
             });
         } catch (IOException e) {

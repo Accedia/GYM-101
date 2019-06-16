@@ -20,8 +20,9 @@ export default class CameraScreen extends React.Component {
         err => {
           console.log(err);
         },
-        (message) => {
-          console.log(message);
+        (appliance, confidence) => {
+          console.log(appliance);
+          console.log(confidence);
         },
       );
     }
@@ -38,7 +39,7 @@ export default class CameraScreen extends React.Component {
           }}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
+          flashMode={RNCamera.Constants.FlashMode.off}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
