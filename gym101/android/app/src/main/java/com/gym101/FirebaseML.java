@@ -10,11 +10,28 @@ import java.lang.System;
 import java.util.Map;
 import java.util.HashMap;
 import android.widget.Toast;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
+import com.google.firebase.ml.common.modeldownload.FirebaseRemoteModel;
+
 
 public class FirebaseML extends ReactContextBaseJavaModule {
 
     public FirebaseML(ReactApplicationContext reactContext) {
-        super(reactContext);
+      super(reactContext);
+
+        
+      FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
+        .requireWifi()
+        .build();
+
+      FirebaseRemoteModel remoteModel = new FirebaseRemoteModel.Builder("fitness_appliances_2019515153632")
+        .enableModelUpdates(true)
+        .setInitialDownloadConditions(conditions)
+        .setUpdatesDownloadConditions(conditions)
+        .build();
+      
+      FirebaseModelManager.getInstance().registerRemoteModel(remoteModel);
     }
 
     @Override
