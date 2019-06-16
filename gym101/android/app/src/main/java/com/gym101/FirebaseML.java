@@ -16,9 +16,12 @@ import android.net.Uri;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
 import com.google.firebase.ml.common.modeldownload.FirebaseRemoteModel;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
+import com.google.firebase.ml.common.FirebaseMLException;
 
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
+import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceAutoMLImageLabelerOptions;
+import com.google.firebase.ml.vision.FirebaseVision;
 import java.io.IOException;
 
 
@@ -27,8 +30,7 @@ public class FirebaseML extends ReactContextBaseJavaModule {
 
     public FirebaseML(ReactApplicationContext reactContext) {
       super(reactContext);
-
-        
+              
       FirebaseModelDownloadConditions conditions = new FirebaseModelDownloadConditions.Builder()
         .requireWifi()
         .build();
@@ -57,8 +59,18 @@ public class FirebaseML extends ReactContextBaseJavaModule {
         FirebaseVisionImage image;
         try {
             image = FirebaseVisionImage.fromFilePath(getCurrentActivity(), Uri.parse(filePath));
+
+            FirebaseVisionOnDeviceAutoMLImageLabelerOptions labelerOptions =
+              new FirebaseVisionOnDeviceAutoMLImageLabelerOptions.Builder()
+                .setRemoteModelName("fitness_appliances_2019515153632")
+                .setConfidenceThreshold(0.5f)
+                .build();
+            FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(labelerOptions);
+
             successCallback.invoke(filePath);
         } catch (IOException e) {
+          errorCallback.invoke(e.getMessage());
+        } catch (FirebaseMLException e) {
           errorCallback.invoke(e.getMessage());
         }
     }
