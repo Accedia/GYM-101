@@ -28,11 +28,11 @@ export default class CameraScreen extends React.Component {
     return (
       <View style={{ flex: 1, flexDirection: 'column'}}>
         <Text style={styles.explanation}>{ i18n.t('camera-screen.explanation') }</Text>
-        <Icon name="comments" size={30} color="#900" />
         <RNCamera
           ref={ref => {
             this.camera = ref;
           }}
+          captureAudio={false}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
           flashMode={RNCamera.Constants.FlashMode.off}
