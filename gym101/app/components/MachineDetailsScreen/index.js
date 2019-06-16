@@ -13,8 +13,8 @@ export default class MachineDetailsScreen extends React.Component {
   }
   fetchData(appliance) {
     return new Promise((resolve, reject) => {
-      console.log(`https://dr7v6vdke8.execute-api.us-east-1.amazonaws.com/dev/excercises?equipment=${encodeURIComponent(appliance)}`)
-      fetch(`https://dr7v6vdke8.execute-api.us-east-1.amazonaws.com/dev/excercises?equipment=${encodeURIComponent(appliance)}`, {
+      console.log(`https://dr7v6vdke8.execute-api.us-east-1.amazonaws.com/dev/excercises?equipment=${encodeURIComponent(this.titleCase(appliance))}`)
+      fetch(`https://dr7v6vdke8.execute-api.us-east-1.amazonaws.com/dev/excercises?equipment=${encodeURIComponent(this.titleCase(appliance))}`, {
         method: 'GET',
         headers: {
           'x-api-key': 'YVrUE6lafIeMXH2o0sEIaCRMgj5cHu18VdfS4XC4'
@@ -28,10 +28,19 @@ export default class MachineDetailsScreen extends React.Component {
       });
      })
   }
+
+  titleCase(str) {
+    console.log("string to upper case: " + str);
+    var splitStr = str.split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+    }
+    return splitStr.join(' '); 
+  }
   
   componentDidMount() {
     this.fetchData(this.props.navigation.state.params.appliance).then(data => {
-      this.setState({ isLoading: false, data})
+      this.setState({ isLoading: false, data: data[0]})
     }).then(err => {
       console.log(err);
     });
@@ -40,10 +49,9 @@ export default class MachineDetailsScreen extends React.Component {
   render() {
     return (
         this.state.isLoading
-        ? <Text> its loading </Text>
+        ? <Text> Loading... </Text>
         : <View style={{ flex: 1, flexDirection: 'column', paddingHorizontal: 10}}>
-            <Text style={styles.explanation}>{ this.props.navigation.state.params.appliance }</Text>
-            <Text style={styles.explanation}>{ this.props.navigation.state.params.confidence }</Text>
+            <Text style={styles.explanation}>{ this.state.data.equipment }</Text>
           </View>
     )
   }
