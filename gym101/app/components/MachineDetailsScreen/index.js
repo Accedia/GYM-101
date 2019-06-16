@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, ToastAndroid, FlatList } from 'react-native'
+import { View, Text, WebView, StyleSheet, ToastAndroid, FlatList } from 'react-native'
 
 import { fonts } from '@config'
 import i18n from '@i18n'
@@ -54,23 +54,7 @@ export default class MachineDetailsScreen extends React.Component {
 
   render() {
     const { data } = this.state
-    test = {
-      "equipment": "Leg Press",
-      "exercises": [
-        {
-          "mainMuscleGroup": "Upper Legs",
-          "name": "Leg Press",
-          "otherMuscleGroups": ["Lower Legs", "Glutes"],
-          "videoLink": "https://www.youtube.com/watch?v=3R0SOJ3alTAk"
-        },
-        {
-          "mainMuscleGroup": "Upper Legs",
-          "name": "Leg Press",
-          "otherMuscleGroups": ["Lower Legs", "Glutes"],
-          "videoLink": "https://www.youtube.com/watch?v=3R0SOJ3alTAk"
-        },
-      ]
-    }
+
     return (
       this.state.isLoading
         ? <Text> {i18n.t('loading')}... </Text>
@@ -102,6 +86,13 @@ export default class MachineDetailsScreen extends React.Component {
               </View>
             }
           />
+          <View>
+            <WebView
+              style={{flex:1}}
+              javaScriptEnabled={true}
+              source={{uri: 'https://www.youtube.com/embed/ZZ5LpwO-An4?rel=0&autoplay=0&showinfo=0&controls=0'}}
+            />
+          </View>
         </View>
     )
   }
