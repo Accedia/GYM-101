@@ -5,6 +5,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 
 import {
   CameraScreen,
+  MachineDetailsScreen,
   PictureConfirmationScreen,
 } from '@components'
 
@@ -27,6 +28,10 @@ const routeConfigs = {
   },
   PictureConfirmation: { 
     screen: PictureConfirmationScreen,
+    navigationOptions,
+  },
+  MachineDetails: { 
+    screen: MachineDetailsScreen,
     navigationOptions,
   }
 
