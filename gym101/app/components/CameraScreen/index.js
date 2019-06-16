@@ -6,31 +6,27 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import i18n from "@i18n"
 import { fonts } from '@config'
 
-import FirebaseML from './FirebaseML';
 
 export default class CameraScreen extends React.Component {
-
   takePicture = async() => {
-    if (this.camera) {
-      const options = { quality: 0.5, base64: true }
+    if ( this.camera ) {
+      const options = {
+        orientation: 0,
+        // pauseAfterCapture: true,
+        fixOrientation: true,
+      }
+
       const data = await this.camera.takePictureAsync(options)
+
       console.log(data.uri)
-      FirebaseML.show(
-        data.uri,
-        err => {
-          console.log(err);
-        },
-        (appliance, confidence) => {
-          console.log(appliance);
-          console.log(confidence);
-        },
-      );
+
+      this.props.navigation.navigate('PictureConfirmation', { pictureUri: data.uri })     
     }
   }
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: 'column',}}>
+      <View style={{ flex: 1, flexDirection: 'column'}}>
         <Text style={styles.explanation}>{ i18n.t('camera-screen.explanation') }</Text>
         <Icon name="comments" size={30} color="#900" />
         <RNCamera
@@ -45,15 +41,6 @@ export default class CameraScreen extends React.Component {
             message: 'We need your permission to use your camera',
             buttonPositive: 'Ok',
             buttonNegative: 'Cancel',
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            console.log(barcodes);
           }}
         />
          <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>

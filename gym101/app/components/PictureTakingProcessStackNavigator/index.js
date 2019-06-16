@@ -4,15 +4,14 @@ import { Image } from 'react-native'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 
 import {
-  HomeScreen,
-  CameraScreen
+  CameraScreen,
+  PictureConfirmationScreen,
 } from '@components'
 
 
 import { colors } from '@config'
 
 import logoSmall from './../../static/images/logo_small.png'
-
 
 const navigationOptions = {
   headerTitle: <Image source={logoSmall} />,
@@ -22,13 +21,15 @@ const navigationOptions = {
 }
 
 const routeConfigs = {
-  Home: { 
-    screen: HomeScreen,
-  },
   Camera: { 
     screen: CameraScreen,
     navigationOptions,
+  },
+  PictureConfirmation: { 
+    screen: PictureConfirmationScreen,
+    navigationOptions,
   }
+
 }
 
 const options = {

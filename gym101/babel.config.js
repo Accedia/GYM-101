@@ -10,6 +10,7 @@ module.exports = {
         "@config": "gym101/app/config.js",
         "@store": "gym101/app/store.js",
         "@actions": "gym101/app/actions/index.js",
+        "@firebaseML": "gym101/app/firebaseML.js",
         
       }
     }]
