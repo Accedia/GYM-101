@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, WebView, StyleSheet, ToastAndroid, FlatList } from 'react-native'
+import { View, Text, StyleSheet, ToastAndroid, FlatList } from 'react-native'
 
 import { fonts } from '@config'
+import secrets from '@secrets'
 import i18n from '@i18n'
 
 export default class MachineDetailsScreen extends React.Component {
@@ -17,9 +18,7 @@ export default class MachineDetailsScreen extends React.Component {
       console.log(`https://dr7v6vdke8.execute-api.us-east-1.amazonaws.com/dev/excercises?equipment=${encodeURIComponent(this.titleCase(appliance))}`)
       fetch(`https://dr7v6vdke8.execute-api.us-east-1.amazonaws.com/dev/excercises?equipment=${encodeURIComponent(this.titleCase(appliance))}`, {
         method: 'GET',
-        headers: {
-          'x-api-key': 'YVrUE6lafIeMXH2o0sEIaCRMgj5cHu18VdfS4XC4'
-        }
+        headers: secrets.machineDetailsApi.headers
       })
         .then((response) => response.json())
         .then((responseJson) => {
@@ -87,11 +86,11 @@ export default class MachineDetailsScreen extends React.Component {
             }
           />
           <View>
-            <WebView
+            {/* <WebView
               style={{flex:1}}
               javaScriptEnabled={true}
               source={{uri: 'https://www.youtube.com/embed/ZZ5LpwO-An4?rel=0&autoplay=0&showinfo=0&controls=0'}}
-            />
+            /> */}
           </View>
         </View>
     )

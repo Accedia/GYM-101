@@ -14,4 +14,4 @@ A repository containing the react-native app code for the GYM-101 team in Accedi
 ## Things that will require additional setup for iOS
 ### react-native-vector-icons
 
-#DELETE /android/build & /android/app/build when changing gradle imports
+# DELETE /android/build & /android/app/build when changing gradle imports

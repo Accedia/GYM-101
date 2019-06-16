@@ -11,7 +11,7 @@ module.exports = {
         "@store": "gym101/app/store.js",
         "@actions": "gym101/app/actions/index.js",
         "@firebaseML": "gym101/app/firebaseML.js",
-        
+        "@secrets": "gym101/app/secrets.js",
       }
     }]
   ]

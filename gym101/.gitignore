@@ -1,3 +1,6 @@
+# secrets
+/app/secrets.js
+
 # OSX
 #
 .DS_Store
