@@ -9,21 +9,29 @@ import FirebaseML from '@firebaseML'
 export default function PictureConfirmationScreen(props) {
 
   function getPrediction(pictureUri) {
-    FirebaseML.show(
-      pictureUri,
-      error => {
-        // TODO Handle error
-        console.log(error)
-      },
-      (appliance, confidence) => {
-        console.log(appliance)
-        console.log(confidence)
-      },
-    )
+    return new Promise((resolve, reject) => {
+      FirebaseML.show(
+        pictureUri,
+        error => {
+          console.log(error);
+          reject(error);
+        },
+        (appliance, confidence) => {
+          console.log(appliance);
+          console.log(confidence);
+          resolve({ appliance, confidence});
+        },
+      )
+    })
   }
 
-  function navigateForward() {
-    props.navigation.navigate('MachineDetails')
+  function tryNavigateForward(pictureUri) {
+    getPrediction(pictureUri).then(prediction => {
+      props.navigation.navigate('MachineDetails', prediction);
+    }).catch(error => {
+      console.log(error);
+      // TODO insert toast message with the error and navigate backward!
+    });
   }
 
   function navigateBackward() {
@@ -41,8 +49,8 @@ export default function PictureConfirmationScreen(props) {
           source={ { uri: pictureUri } }
         />
         <View>
-          <TouchableOpacity onPress={navigateForward} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+          <TouchableOpacity onPress={() => tryNavigateForward(pictureUri)} style={styles.capture}>
+            <Text style={{ fontSize: 14 }}> SEND </Text>
           </TouchableOpacity>
         </View>
       </View>

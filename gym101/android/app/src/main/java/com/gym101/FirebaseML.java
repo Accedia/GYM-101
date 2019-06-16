@@ -72,13 +72,10 @@ public class FirebaseML extends ReactContextBaseJavaModule {
                 .build();
             FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(labelerOptions);
 
-
-
             labeler.processImage(image)
             .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
               @Override
               public void onSuccess(List<FirebaseVisionImageLabel> labels) {
-              Toast.makeText(getReactApplicationContext(), "2", Toast.LENGTH_LONG).show();
                 if (labels.size() > 0) {
                   successCallback.invoke(
                     labels.get(0).getText(),
@@ -93,7 +90,6 @@ public class FirebaseML extends ReactContextBaseJavaModule {
               @Override
               public void onFailure(@NonNull Exception e) {
                 errorCallback.invoke("OnFailureListener " + e.getMessage());
-                Toast.makeText(getReactApplicationContext(), "3", Toast.LENGTH_LONG).show();
               }
             });
         } catch (IOException e) {
