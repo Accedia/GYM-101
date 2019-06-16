@@ -24,6 +24,11 @@ import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceAutoMLImageLabe
 import com.google.firebase.ml.vision.FirebaseVision;
 import java.io.IOException;
 
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import java.util.List;
+import android.support.annotation.NonNull;
 
 
 public class FirebaseML extends ReactContextBaseJavaModule {
@@ -55,7 +60,7 @@ public class FirebaseML extends ReactContextBaseJavaModule {
       Callback errorCallback,
       Callback successCallback) {
 
-        Toast.makeText(getReactApplicationContext(), filePath, Toast.LENGTH_LONG).show();
+        // Toast.makeText(getReactApplicationContext(), filePath, Toast.LENGTH_LONG).show();
         FirebaseVisionImage image;
         try {
             image = FirebaseVisionImage.fromFilePath(getCurrentActivity(), Uri.parse(filePath));
@@ -67,7 +72,26 @@ public class FirebaseML extends ReactContextBaseJavaModule {
                 .build();
             FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(labelerOptions);
 
-            successCallback.invoke(filePath);
+
+
+            labeler.processImage(image)
+            .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
+              @Override
+              public void onSuccess(List<FirebaseVisionImageLabel> labels) {
+              Toast.makeText(getReactApplicationContext(), "2", Toast.LENGTH_LONG).show();
+
+                successCallback.invoke(labels);
+              }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                errorCallback.invoke("OnFailureListener " + e.getMessage());
+
+                Toast.makeText(getReactApplicationContext(), "3", Toast.LENGTH_LONG).show();
+                
+              }
+            });
         } catch (IOException e) {
           errorCallback.invoke(e.getMessage());
         } catch (FirebaseMLException e) {
