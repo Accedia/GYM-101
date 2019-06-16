@@ -34,11 +34,10 @@ const routeConfigs = {
     screen: MachineDetailsScreen,
     navigationOptions,
   }
-
 }
 
 const options = {
-  initialRouteName: "MachineDetails"
+  initialRouteName: "Camera"
 }
 
 const AppNavigator = createStackNavigator(
