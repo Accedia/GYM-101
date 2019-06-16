@@ -10,9 +10,17 @@ import java.lang.System;
 import java.util.Map;
 import java.util.HashMap;
 import android.widget.Toast;
+
+import android.content.Context;
+import android.net.Uri;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
-import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
 import com.google.firebase.ml.common.modeldownload.FirebaseRemoteModel;
+import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
+
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+
+import java.io.IOException;
+
 
 
 public class FirebaseML extends ReactContextBaseJavaModule {
@@ -41,11 +49,18 @@ public class FirebaseML extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void show(
-      String message,
+      String filePath,
       Callback errorCallback,
       Callback successCallback) {
-        Toast.makeText(getReactApplicationContext(), message, Toast.LENGTH_LONG).show();
-        successCallback.invoke(message);
+
+        Toast.makeText(getReactApplicationContext(), filePath, Toast.LENGTH_LONG).show();
+        FirebaseVisionImage image;
+        try {
+            image = FirebaseVisionImage.fromFilePath(getCurrentActivity(), Uri.parse(filePath));
+            successCallback.invoke(filePath);
+        } catch (IOException e) {
+          errorCallback.invoke(e.getMessage());
+        }
     }
 
 }

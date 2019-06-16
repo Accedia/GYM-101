@@ -16,7 +16,7 @@ export default class CameraScreen extends React.Component {
       const data = await this.camera.takePictureAsync(options)
       console.log(data.uri)
       FirebaseML.show(
-        'Awesome',
+        data.uri,
         err => {
           console.log(err);
         },
