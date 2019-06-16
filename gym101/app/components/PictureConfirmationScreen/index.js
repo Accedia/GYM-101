@@ -19,8 +19,6 @@ export default function PictureConfirmationScreen(props) {
           reject(error);
         },
         (appliance, confidence) => {
-          console.log(appliance);
-          console.log(confidence);
           resolve({ appliance, confidence});
         },
       )
@@ -42,7 +40,7 @@ export default function PictureConfirmationScreen(props) {
   }
 
   function navigateBackward() {
-
+    props.navigation.navigate('Camera');
   }
   console.log('props', props)
   const pictureUri =  props.navigation.state.params.pictureUri //"file:///data/user/0/com.gym101/cache/Camera/10a3d859-f583-4c70-98ce-8f068c79d1d8.jpg" //
