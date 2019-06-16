@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontFamily: fonts.regular,
-    fontSize: 35,
-    textAlign: 'center'
+    fontSize: 50,
+    paddingHorizontal: 100,
+    textAlign: 'center',
   }
 })

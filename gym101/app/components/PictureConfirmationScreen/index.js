@@ -2,8 +2,11 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native'
 
 import i18n from '@i18n'
-import { fonts } from '@config'
+import { fonts, colors } from '@config'
 import FirebaseML from '@firebaseML'
+
+import backward from './../../static/images/backward.png'
+import forward from './../../static/images/forward.png'
 
 export default function PictureConfirmationScreen(props) {
 
@@ -47,9 +50,12 @@ export default function PictureConfirmationScreen(props) {
           style={ styles.image  }
           source={ { uri: pictureUri } }
         />
-        <View>
-          <TouchableOpacity onPress={() => tryNavigateForward(pictureUri)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SEND </Text>
+        <View style={styles.navigationButtonContainer}>
+          <TouchableOpacity style={styles.navigationButton} onPress={navigateBackward} >
+            <Image source={backward}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.navigationButton} onPress={() => tryNavigateForward(pictureUri)} >
+            <Image source={forward}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -66,6 +72,8 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     flex: 1,
+    borderRadius: 4,
+    overflow: 'hidden',
     alignItems: 'stretch'
   },
   image: {
@@ -75,14 +83,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  capture: {
+  },  
+  navigationButtonContainer: {
     flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  navigationButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 2,
+    height: 60,
+    borderRadius: 100,
+    
   },
 })

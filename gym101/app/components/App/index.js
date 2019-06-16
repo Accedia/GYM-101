@@ -11,7 +11,7 @@ import { types } from '@actions'
 
 class App extends React.Component {
   componentDidMount() {
-    setTimeout(()=> this.props.dispatch({type: types.SET_IS_APP_LOADING, payload: false}), 500)
+    setTimeout(()=> this.props.dispatch({type: types.SET_IS_APP_LOADING, payload: false}), 100)
   }
 
   render() {

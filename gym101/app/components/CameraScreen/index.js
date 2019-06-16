@@ -1,17 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 
 import i18n from "@i18n"
-import { fonts } from '@config'
-
+import { fonts, colors } from '@config'
 
 export default class CameraScreen extends React.Component {
-  takePicture = async() => {
-    if ( this.camera ) {
+  takePicture = async () => {
+    if (this.camera) {
       const options = {
         orientation: 0,
-        // pauseAfterCapture: true,
         fixOrientation: true,
       }
 
@@ -19,19 +17,21 @@ export default class CameraScreen extends React.Component {
 
       console.log(data.uri)
 
-      this.props.navigation.navigate('PictureConfirmation', { pictureUri: data.uri })     
+      this.props.navigation.navigate('PictureConfirmation', { pictureUri: data.uri })
     }
   }
 
   render() {
     return (
-      <View style={{ flex: 1, flexDirection: 'column', paddingHorizontal: 10}}>
-        <Text style={styles.explanation}>{ i18n.t('camera-screen.explanation') }</Text>
+      <View style={styles.container}>
+
+        <View style={styles.explanationContainer}>
+          <Text style={styles.explanation}>{i18n.t('camera-screen.explanation')}</Text>
+        </View>
+
         <RNCamera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          captureAudio={ false }
+          ref={ref => this.camera = ref}
+          captureAudio={false}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
           flashMode={RNCamera.Constants.FlashMode.off}
@@ -42,10 +42,9 @@ export default class CameraScreen extends React.Component {
             buttonNegative: 'Cancel',
           }}
         />
-         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
-          </TouchableOpacity>
+
+        <View style={styles.captureContainer}>
+          <TouchableOpacity style={styles.capture} onPress={this.takePicture.bind(this)} />
         </View>
       </View>
     );
@@ -53,7 +52,18 @@ export default class CameraScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  explanation: { 
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingHorizontal: 10
+  },
+
+  explanationContainer: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  explanation: {
     fontFamily: fonts.regular,
     fontSize: 20,
     lineHeight: 22,
@@ -61,16 +71,25 @@ const styles = StyleSheet.create({
   },
   preview: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  captureContainer: {
+    flex: 0,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   capture: {
-    flex: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
     alignSelf: 'center',
-    margin: 20,
+    borderColor: colors.yellow,
+    backgroundColor: colors.grey,
+    borderWidth: 5,
+    marginVertical: 8,
+    padding: 7,
+    borderRadius: 100,
+    width: 60,
+    height: 60,
   },
 })
