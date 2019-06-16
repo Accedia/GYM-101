@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, ToastAndroid, FlatList } from 'react-native'
 
 import { fonts } from '@config'
+import i18n from '@i18n'
 
 export default class MachineDetailsScreen extends React.Component {
   constructor(props) {
@@ -71,25 +72,31 @@ export default class MachineDetailsScreen extends React.Component {
     }
     return (
       !this.state.isLoading
-        ? <Text> Loading... </Text>
+        ? <Text> {i18n.t('loading')}... </Text>
         : <View style={styles.container}>
-          <Text style={styles.explanation}>{test.equipment}</Text>
+          <View>
+            <Text style={styles.equipmentName}>{test.equipment}</Text>
+          </View>
+
           <FlatList
             data={test.exercises}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) =>
-              <View>
-                <Text>{item.name}</Text>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <Text>Main Muscle Group: </Text><Text>{item.mainMuscleGroup}</Text>
+              <View style={styles.exerciseContainer}>
+                <View>
+                  <Text style={styles.exerciseName}>{item.name}</Text>
                 </View>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                  <Text>Other Muscle Groups: </Text>
-                  {
-                    item.otherMuscleGroups.map((otherMuscleGroup, index) => (
-                      <Text key={index}>{otherMuscleGroup}, </Text>
-                    ))
-                  }
+                <View style={styles.muscleGroupContainer}>
+                  <Text style={styles.muscleGroupLabel}>
+                    {i18n.t('machine-details-screen.main-muscle-group')}
+                    : <Text style={styles.muscleGroup}>{item.mainMuscleGroup}</Text>
+                  </Text>
+                </View>
+                <View style={styles.muscleGroupContainer}>
+                  <Text style={styles.muscleGroupLabel}>
+                    {i18n.t('machine-details-screen.other-muscle-groups')}
+                    : <Text style={styles.muscleGroup}>{item.otherMuscleGroups.join(', ')}</Text>
+                  </Text>
                 </View>
               </View>
             }
@@ -102,17 +109,29 @@ export default class MachineDetailsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20
+    padding: 10
   },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+  exerciseContainer: {
+    paddingBottom: 10,
   },
-  explanation: {
+  equipmentName: {
     fontFamily: fonts.regular,
-    fontSize: 40,
-    lineHeight: 22,
-    paddingVertical: 10
+    fontSize: 60,
+  },
+  exerciseName: {
+    fontFamily: fonts.regular,
+    fontSize: 30,
+  },
+  muscleGroupContainer: {
+    paddingVertical: 3
+  },
+  muscleGroupLabel: {
+    fontFamily: fonts.regular,
+    fontSize: 20,
+
+  },
+  muscleGroup: {
+    fontFamily: fonts.bold,
+    fontSize: 20,
   }
 })

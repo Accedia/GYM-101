@@ -8,6 +8,11 @@ export default {
   'picture-confirmation-screen': {
     explanation: 'Ready for a workout?'
   },
+  'machine-details-screen': {
+    'main-muscle-group': 'Main muscle group',
+    'other-muscle-groups': 'Other muscle groups',
+  },
+  loading: 'Loading',
   hello: 'Hello',
   goodbye: 'Goodbye',
   'not-confident-prediction-screen': {

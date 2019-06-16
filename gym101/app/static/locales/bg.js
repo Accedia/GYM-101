@@ -8,6 +8,11 @@ export default {
   'picture-confirmation-screen': {
     explanation: 'Готови ли сте за тренировка?'
   },
+  'machine-details-screen': {
+    'main-muscle-group': 'Основна мускулна група',
+    'other-muscle-groups': 'Други мускулни групи',
+  },
+  loading: 'Зареждане',
   hello: 'Здравейте',
   goodbye: 'Довиждане',
   'not-confident-prediction-screen': {
