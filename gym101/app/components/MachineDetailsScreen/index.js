@@ -40,19 +40,20 @@ export default class MachineDetailsScreen extends React.Component {
   }
 
   componentDidMount() {
-    // this.fetchData(this.props.navigation.state.params.appliance).then(data => {
-    //   console.log(data[0]);
-    //   this.setState({ isLoading: false, data: data[0]})
-    // }).catch(err => {
-    //   console.log(err);
-    //   ToastAndroid.show(err, ToastAndroid.LONG);
-    // });
+    this.fetchData(this.props.navigation.state.params.appliance).then(data => {
+      console.log(data[0]);
+      this.setState({ isLoading: false, data: data[0] })
+    }).catch(err => {
+      console.log(err);
+      ToastAndroid.show(err, ToastAndroid.LONG);
+    });
   }
 
-  // this.state.data.equipment
+
 
 
   render() {
+    const { data } = this.state
     test = {
       "equipment": "Leg Press",
       "exercises": [
@@ -71,15 +72,15 @@ export default class MachineDetailsScreen extends React.Component {
       ]
     }
     return (
-      !this.state.isLoading
+      this.state.isLoading
         ? <Text> {i18n.t('loading')}... </Text>
         : <View style={styles.container}>
           <View>
-            <Text style={styles.equipmentName}>{test.equipment}</Text>
+            <Text style={styles.equipmentName}>{data.equipment}</Text>
           </View>
 
           <FlatList
-            data={test.exercises}
+            data={data.exercises}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) =>
               <View style={styles.exerciseContainer}>

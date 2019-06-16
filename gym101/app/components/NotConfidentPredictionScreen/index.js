@@ -19,6 +19,7 @@ export default function NotConfidentPredictionScreen(props) {
 
   let imageName;
 
+  // TODO Should come from api response
   if (equipmentName === 'power tower') {
     imageName = powerTower;
   } else if (equipmentName === 'leg press') {
@@ -28,7 +29,7 @@ export default function NotConfidentPredictionScreen(props) {
   }
 
   function navigateForward() {
-    props.navigation.navigate('MachineDetails', equipmentName);
+    props.navigation.navigate('MachineDetails', { appliance: equipmentName });
   }
 
   function navigateBackward() {
