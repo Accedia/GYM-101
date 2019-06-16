@@ -9,5 +9,8 @@ export default {
     explanation: 'Готови ли сте за тренировка?'
   },
   hello: 'Здравейте',
-  goodbye: 'Довиждане'
+  goodbye: 'Довиждане',
+  'not-confident-prediction-screen': {
+    explanation: 'Това ли е правилният уред?'
+  }
 };

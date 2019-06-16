@@ -29,7 +29,7 @@ export default function PictureConfirmationScreen(props) {
 
   function tryNavigateForward(pictureUri) {
     getPrediction(pictureUri).then(prediction => {
-      if (prediction > 0.6) {
+      if (prediction.confidence > 0.6) {
         props.navigation.navigate('MachineDetails', prediction);
       } else {
         props.navigation.navigate('NotConfidentPrediction', prediction);
