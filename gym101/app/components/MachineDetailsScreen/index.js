@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, ToastAndroid, FlatList } from 'react-native'
+import { WebView } from 'react-native-webview'
 
 import { fonts } from '@config'
 import secrets from '@secrets'
@@ -39,6 +40,7 @@ export default class MachineDetailsScreen extends React.Component {
   }
 
   componentDidMount() {
+    // return this.setState({ isLoading: false })
     this.fetchData(this.props.navigation.state.params.appliance).then(data => {
       console.log(data[0]);
       this.setState({ isLoading: false, data: data[0] })
@@ -53,7 +55,23 @@ export default class MachineDetailsScreen extends React.Component {
 
   render() {
     const { data } = this.state
-
+    // const data = {
+    //   "equipment": "Leg Press",
+    //   "exercises": [
+    //     {
+    //       "mainMuscleGroup": "Upper Legs",
+    //       "name": "Leg Press",
+    //       "otherMuscleGroups": ["Lower Legs", "Glutes"],
+    //       "videoLink": "https://www.youtube.com/watch?v=3R0SOJ3alTA"
+    //     },
+    //     {
+    //       "mainMuscleGroup": "Upper Legs",
+    //       "name": "Leg Press",
+    //       "otherMuscleGroups": ["Lower Legs", "Glutes"],
+    //       "videoLink": "https://www.youtube.com/watch?v=3R0SOJ3alTA",
+    //     },
+    //   ]
+    // }
     return (
       this.state.isLoading
         ? <Text> {i18n.t('loading')}... </Text>
@@ -82,16 +100,14 @@ export default class MachineDetailsScreen extends React.Component {
                     : <Text style={styles.muscleGroup}>{item.otherMuscleGroups.join(', ')}</Text>
                   </Text>
                 </View>
+                <WebView
+                  style={{ flex: 1, height: 250, borderWidth: 1, borderColor: 'black' }}
+                  javaScriptEnabled={true}
+                  source={{ uri: item.videoLink.split('watch?v=').join('embed/') + '?rel=0&autoplay=0&showinfo=0&controls=0' }}
+                />
               </View>
             }
           />
-          <View>
-            {/* <WebView
-              style={{flex:1}}
-              javaScriptEnabled={true}
-              source={{uri: 'https://www.youtube.com/embed/ZZ5LpwO-An4?rel=0&autoplay=0&showinfo=0&controls=0'}}
-            /> */}
-          </View>
         </View>
     )
   }
