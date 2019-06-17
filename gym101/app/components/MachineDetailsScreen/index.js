@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, ToastAndroid, FlatList } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image, ToastAndroid, FlatList } from 'react-native'
 import { WebView } from 'react-native-webview'
 
-import { fonts } from '@config'
+import { fonts, colors } from '@config'
 import secrets from '@secrets'
 import i18n from '@i18n'
+
+import camera from './../../static/images/camera.png'
 
 export default class MachineDetailsScreen extends React.Component {
   constructor(props) {
@@ -50,7 +52,9 @@ export default class MachineDetailsScreen extends React.Component {
     });
   }
 
-
+  goToCameraScreen() {
+    this.props.navigation.navigate('Camera')
+  }
 
 
   render() {
@@ -72,43 +76,50 @@ export default class MachineDetailsScreen extends React.Component {
     //     },
     //   ]
     // }
+
     return (
       this.state.isLoading
         ? <Text> {i18n.t('loading')}... </Text>
         : <View style={styles.container}>
-          <View>
-            <Text style={styles.equipmentName}>{data.equipment}</Text>
-          </View>
-
-          <FlatList
-            data={data.exercises}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) =>
-              <View style={styles.exerciseContainer}>
+            <FlatList
+              ListHeaderComponent={
                 <View>
-                  <Text style={styles.exerciseName}>{item.name}</Text>
+                  <Text style={styles.equipmentName}>{data.equipment}</Text>
                 </View>
-                <View style={styles.muscleGroupContainer}>
-                  <Text style={styles.muscleGroupLabel}>
-                    {i18n.t('machine-details-screen.main-muscle-group')}
-                    : <Text style={styles.muscleGroup}>{item.mainMuscleGroup}</Text>
-                  </Text>
+              }
+              data={data.exercises}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) =>
+                <View style={styles.exerciseContainer}>
+                  <View>
+                    <Text style={styles.exerciseName}>{item.name}</Text>
+                  </View>
+                  <View style={styles.muscleGroupContainer}>
+                    <Text style={styles.muscleGroupLabel}>
+                      {i18n.t('machine-details-screen.main-muscle-group')}
+                      : <Text style={styles.muscleGroup}>{item.mainMuscleGroup}</Text>
+                    </Text>
+                  </View>
+                  <View style={styles.muscleGroupContainer}>
+                    <Text style={styles.muscleGroupLabel}>
+                      {i18n.t('machine-details-screen.other-muscle-groups')}
+                      : <Text style={styles.muscleGroup}>{item.otherMuscleGroups.join(', ')}</Text>
+                    </Text>
+                  </View>
+                  <WebView
+                    style={{ flex: 1, height: 250, borderWidth: 1, borderColor: 'black' }}
+                    javaScriptEnabled={true}
+                    source={{ uri: item.videoLink.split('watch?v=').join('embed/') + '?rel=0&autoplay=0&showinfo=0&controls=0' }}
+                  />
                 </View>
-                <View style={styles.muscleGroupContainer}>
-                  <Text style={styles.muscleGroupLabel}>
-                    {i18n.t('machine-details-screen.other-muscle-groups')}
-                    : <Text style={styles.muscleGroup}>{item.otherMuscleGroups.join(', ')}</Text>
-                  </Text>
-                </View>
-                <WebView
-                  style={{ flex: 1, height: 250, borderWidth: 1, borderColor: 'black' }}
-                  javaScriptEnabled={true}
-                  source={{ uri: item.videoLink.split('watch?v=').join('embed/') + '?rel=0&autoplay=0&showinfo=0&controls=0' }}
-                />
-              </View>
-            }
-          />
-        </View>
+              }
+            />
+            <View style={styles.overlayContainer}>
+              <TouchableOpacity style={styles.navigationButton} onPress={() => this.goToCameraScreen()} >
+                <Image source={camera}/>
+              </TouchableOpacity>
+            </View>
+          </View>
     )
   }
 }
@@ -116,7 +127,7 @@ export default class MachineDetailsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10
+    paddingHorizontal: 10
   },
   exerciseContainer: {
     paddingBottom: 10,
@@ -140,5 +151,21 @@ const styles = StyleSheet.create({
   muscleGroup: {
     fontFamily: fonts.bold,
     fontSize: 20,
+  },
+  overlayContainer: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    bottom: 20,
+    borderRadius: 50,
+    left: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.lightGrey,
+    opacity: 0.8
+  },
+  overlay: {
+    opacity: 1
   }
+
 })

@@ -20,6 +20,7 @@ const navigationOptions = {
   headerStyle: {
     backgroundColor: colors.lightGrey,
   },
+  headerLeft: null
 }
 
 const routeConfigs = {
