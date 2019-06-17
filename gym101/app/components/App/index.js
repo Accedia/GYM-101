@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 
 import {
@@ -11,7 +11,9 @@ import { types } from '@actions'
 
 class App extends React.Component {
   componentDidMount() {
-    setTimeout(()=> this.props.dispatch({type: types.SET_IS_APP_LOADING, payload: false}), 100)
+    setTimeout(()=> this.props.dispatch({type: types.SET_IS_APP_LOADING, payload: false}), 1500)
+
+    StatusBar.setHidden(true)
   }
 
   render() {
